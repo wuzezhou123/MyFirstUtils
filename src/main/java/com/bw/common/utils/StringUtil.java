@@ -2,6 +2,8 @@ package com.bw.common.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 字符串工具类
@@ -88,4 +90,25 @@ public class StringUtil {
 		str = str.trim();
 		return str.matches(reg);
 	}
+	
+	
+	/*
+	* 方法功能：根据正则在字符串提取一段值，用于后面在url地址里提取ID值。
+	* 例如在“http://news.cnstock.com/news,yw-201908-4413224.htm”把“4413224”提取出来。
+	*/
+	public static String getPlaceholderValue(String src, String regex){
+		
+		src=src.substring(0,src.indexOf(".htm")+4);
+		String[] sp2 = src.split("-");
+		String str="";
+		for(String i:sp2) {
+			boolean b = i.matches(regex);
+			if(b==true) {
+				str=i.substring(0,i.indexOf(".htm"));
+			}
+		}
+		
+		return str;
+	}
+
 }
